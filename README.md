@@ -1,15 +1,15 @@
-# BMI Calculator App
+# BMI Calculator App - Version for Adult Patients
 
 ## 🌐 Online access to BMI Calculator App
 
-[BMI Calculator App v1.0](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
+[BMI Calculator App - Version for Adult Patients](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
 
 ## 📝 About BMI Calculator App
 
-BMI Calculator App is an interactive and free web application developed using R Studio and Shiny. It assists sports teams' coaching staff in creating random training or competition groups. This app is suitable for any team sport (basketball 🏀, soccer ⚽, volleyball 🏐, etc.) and offers the following features:
+BMI Calculator App is an interactive and free web application developed using R Studio and Shiny. It enables healthcare professionals and sports coaches to calculate and monitor the Body Mass Index (BMI) of their patients or athletes for life. The app provides a secure and organized way to store this information. Key features include:
 
-- **📥 Load players**: Load player data from pre-created XLSX, XLS, or CSV files.
-- **➕ Add players**: Add new players with complete information, including ID number, first and last name, sport, team, age category, and position.
+- **➕ New patient entry**: Input a patient/athlete's ID, sex, weight, and height to instantly calculate their BMI.
+- **📈 BMI visualization**: Displays the BMI value of the patient/athlete and their corresponding World Health Organization (WHO) category.
 - **✏️ Modify players**: Modify recorded information to keep player lists up-to-date and accurate.
 - **❌ Delete players**: Remove players from the list who are not attending a specific training session or match.
 - **🎲 Randomize groups**: Generate random training or competition groups with customizable filters by sport, team, age category, and position.
