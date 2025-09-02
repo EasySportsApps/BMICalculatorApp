@@ -17,10 +17,11 @@ BMI Calculator App is an interactive and free web application developed using R 
 
 In future versions of BMI Calculator App, we are considering adding the following features:
 
-- **📑 Predefined groups tab**: A new tab to create non-random or manually assigned training or competition groups.
-- **🔢 Sampling tab**: A new tab to create samples or subgroups of players from the existing player pool.
-- **📊 Sociogram tab**: A new tab to visualize which players have trained or competed together most frequently.
-- **🏆 Match outcome recording function**: A new function to record both the winning and losing teams or groups after a real or training match.
+- **<img src="https://img.icons8.com/ios-filled/24/000000/birthday.png"/> Date of birth input**: Register the patient/athlete's date of birth.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/clock.png"/> Automatic age calculation**: Instantly calculate the patient/athlete's exact age in decimal years.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/> Report download per record**: Add buttons in the interactive table to download reports for each record/row.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/email.png"/> Email report sending**: Send the report directly by email to the patient/athlete.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/combo-chart.png"/> Patient progress visualization**: Display a chart to visualize the follow-up and evolution of each patient/athlete over time.  
 
 If you have any suggestions for improvement, feel free to share them in the [Discussions](https://github.com/EasySportsApps/BMICalculatorApp/discussions) section 💬 of our GitHub repository or send us an [email](mailto:easysportsappsproject@gmail.com) 📧.  
 
