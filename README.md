@@ -6,10 +6,10 @@
 
 ## 📝 About BMI Calculator App
 
-BMI Calculator App is an interactive and free web application developed using R Studio and Shiny. It enables healthcare professionals and sports coaches to calculate and monitor the Body Mass Index (BMI) of their patients or athletes for life. The app provides a secure and organized way to store this information. Key features include:
+BMI Calculator App is a free and interactive web application developed with RStudio and Shiny. It enables healthcare professionals and sports coaches to calculate and monitor the Body Mass Index (BMI) of their patients or athletes over time. The app provides a secure and organized way to store this information. Key features include:
 
 - **<img src="https://img.icons8.com/ios-filled/24/000000/add-user-male.png"/>  New patient entry**: Input a patient/athlete's ID, sex, weight, and height to instantly calculate and visualize their BMI.
-- **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> New patient BMI estimation**: Displays the BMI value and its classification according to the World Health Organization (WHO) category for the new patient/athlete entry.
+- **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> New patient BMI estimation**: Displays the BMI value and its classification according to the World Health Organization (WHO) standards.
 - **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/>  Download report**: Generate and download a PDF report of the BMI calculation for the new patient/athlete entry.
 - **<img src="https://img.icons8.com/ios-filled/24/000000/conference.png"/> Patient records**: View, search, filter, and edit all saved patient/athlete records in an interactive table. You can also download the filtered data in CSV, XLSX, or PDF formats.
 
@@ -30,7 +30,7 @@ To support the inclusion of these new features, contributions from app users thr
 
 ## 📝 About EasySportsApps project
 
-BMI Calculator App is part of the [EasySportsApps](https://github.com/EasySportsApps) project, driven and developed by [Raúl Hileno, PhD](https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/). The project focuses on creating practical and innovative digital solutions that address the dynamic needs of professionals in physical activity and sports.
+BMI Calculator App is part of the [EasySportsApps](https://github.com/EasySportsApps) project, created and developed by [Raúl Hileno, PhD](https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/). The project focuses on creating practical and innovative digital solutions that address the dynamic needs of professionals in physical activity and sports.
 
 ## 📜 BMI Calculator App license
 
