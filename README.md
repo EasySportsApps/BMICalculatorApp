@@ -23,9 +23,9 @@ In future versions, we are considering adding the following features:
 - **<img src="https://img.icons8.com/ios-filled/24/000000/email.png"/> Email report button**: A new button in the interactive table to send reports directly by email to the patient/athlete.  
 - **<img src="https://img.icons8.com/ios-filled/24/000000/line-chart.png"/> Patient progress plot**: A new plot to visualize the follow-up and evolution of each patient/athlete over time.
 
-If you have any suggestions for improvement, feel free to share them in the [Discussions](https://github.com/EasySportsApps/BMICalculatorApp/discussions) section <img src="https://img.icons8.com/ios-filled/24/000000/comments.png"/> of our GitHub repository or send us an [email](mailto:easysportsappsproject@gmail.com) <img src="https://img.icons8.com/ios-filled/24/000000/email.png"/>.  
+If you have any suggestions for improvement, feel free to share them in the [Discussions](https://github.com/EasySportsApps/BMICalculatorApp/discussions) section of our GitHub repository or send us an [email](mailto:easysportsappsproject@gmail.com).  
 
-We greatly appreciate contributions from app users through our [donation link](https://www.paypal.com/donate/?hosted_button_id=BA84P5Y2MC7MN). Thank you! <img src="https://img.icons8.com/ios-filled/24/000000/handshake.png"/>
+We greatly appreciate contributions from app users through our [donation link](https://www.paypal.com/donate/?hosted_button_id=BA84P5Y2MC7MN). Thank you!
 
 ## <img src="https://img.icons8.com/ios-filled/24/000000/document.png"/> About EasySportsApps project
 
