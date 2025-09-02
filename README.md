@@ -17,11 +17,12 @@ BMI Calculator App is an interactive and free web application developed using R 
 
 In future versions of BMI Calculator App, we are considering adding the following features:
 
-- **<img src="https://img.icons8.com/ios-filled/24/000000/birthday.png"/> Date of birth input**: Register the patient/athlete's date of birth.  
-- **<img src="https://img.icons8.com/ios-filled/24/000000/clock.png"/> Automatic age calculation**: Instantly calculate the patient/athlete's exact age in decimal years.  
-- **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/> Report download per record**: Add buttons in the interactive table to download reports for each record/row.  
-- **<img src="https://img.icons8.com/ios-filled/24/000000/email.png"/> Email report sending**: Send the report directly by email to the patient/athlete.  
-- **<img src="https://img.icons8.com/ios-filled/24/000000/combo-chart.png"/> Patient progress visualization**: Display a chart to visualize the follow-up and evolution of each patient/athlete over time.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/birthday.png"/> Birth date input**: A new input to register the patient/athlete's birth date.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/clock.png"/> Automatic age calculation**: A new function to instantly calculate the patient/athlete's exact age in decimal years.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/> Report download per record**: A new option in the interactive table to download reports for each record/row.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/email.png"/> Email report sending**: A new option to send reports directly by email to the patient/athlete.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/combo-chart.png"/> Patient progress visualization**: A new chart to visualize the follow-up and evolution of each patient/athlete over time.  
+
 
 If you have any suggestions for improvement, feel free to share them in the [Discussions](https://github.com/EasySportsApps/BMICalculatorApp/discussions) section 💬 of our GitHub repository or send us an [email](mailto:easysportsappsproject@gmail.com) 📧.  
 
