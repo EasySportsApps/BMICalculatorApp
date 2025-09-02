@@ -42,4 +42,4 @@ Under the following terms:
 - **<img src="https://img.icons8.com/ios-filled/24/000000/user.png"/> Attribution**: You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 - **<img src="https://img.icons8.com/ios-filled/24/000000/no-cash.png"/> NonCommercial**: You may not use the material for commercial purposes.
 - **<img src="https://img.icons8.com/material-rounded/24/000000/equal-sign.png"/> NoDerivatives**: If you remix, transform, or build upon the material, you may not distribute the modified material.
-- **<img src="https://img.icons8.com/material-rounded/24/000000/unlock.png"/> No additional restrictions**: You may not apply legal terms or technological measures that legally restrict others.
+- **<img src="https://img.icons8.com/material-rounded/24/000000/unlock.png"/> No additional restrictions**: You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
