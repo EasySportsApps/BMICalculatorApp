@@ -1,4 +1,4 @@
-# BMI Calculator App - Version for Adult Patients
+# BMI Calculator App
 
 ## 🌐 Online access to BMI Calculator App
 
