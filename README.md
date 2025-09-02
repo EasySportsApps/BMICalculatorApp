@@ -23,7 +23,7 @@ In future versions of BMI Calculator App, we are considering adding the followin
 - **📊 Sociogram tab**: A new tab to visualize which players have trained or competed together most frequently.
 - **🏆 Match outcome recording function**: A new function to record both the winning and losing teams or groups after a real or training match.
 
-If you have any suggestions for improvement, feel free to share them in the [Discussions](https://github.com/EasySportsApps/RandomTeamsApp/discussions) section 💬 of our GitHub repository or send us an [email](mailto:easysportsappsproject@gmail.com) 📧.  
+If you have any suggestions for improvement, feel free to share them in the [Discussions](https://github.com/EasySportsApps/BMICalculatorApp/discussions) section 💬 of our GitHub repository or send us an [email](mailto:easysportsappsproject@gmail.com) 📧.  
 
 To support the inclusion of these new features, contributions from app users through our [donation link](https://www.paypal.com/donate/?hosted_button_id=BA84P5Y2MC7MN) are highly appreciated. Thank you! 🙏
 
