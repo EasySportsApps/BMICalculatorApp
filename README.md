@@ -8,11 +8,10 @@
 
 BMI Calculator App is an interactive and free web application developed using R Studio and Shiny. It enables healthcare professionals and sports coaches to calculate and monitor the Body Mass Index (BMI) of their patients or athletes for life. The app provides a secure and organized way to store this information. Key features include:
 
-- **➕ New patient entry**: Input a patient/athlete's ID, sex, weight, and height to instantly calculate their BMI.
-- **📈 BMI visualization**: Displays the BMI value of the patient/athlete and their corresponding World Health Organization (WHO) category.
-- **✏️ Modify players**: Modify recorded information to keep player lists up-to-date and accurate.
-- **❌ Delete players**: Remove players from the list who are not attending a specific training session or match.
-- **🎲 Randomize groups**: Generate random training or competition groups with customizable filters by sport, team, age category, and position.
+- **<i class='fa fa-user-plus'></i> New patient entry**: Input a patient/athlete's ID, sex, weight, and height to instantly calculate and visualize their BMI.
+- **📈 New patient BMI estimation**: Displays the BMI value and its classification according to the World Health Organization (WHO) category for the new patient/athlete entry.
+- **📥 Download report**: Generate and download a PDF report of the BMI calculation for the new patient/athlete entry.
+- **❌ Patient records**: View, search, filter, and edit all saved patient/athlete records in an interactive table. You can also download the filtered data in CSV, XLSX, or PDF formats.
 
 ## 💡 Future features and ideas for BMI Calculator App
 
