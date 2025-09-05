@@ -8,10 +8,10 @@
 
 BMI Calculator App is a free and interactive web application developed with RStudio and Shiny. It enables healthcare professionals and sports coaches to calculate and monitor the Body Mass Index (BMI) of their patients or athletes over time. This tool should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. The app provides a secure and organized way to store this information and offers the following features:
 
-- **<img src="https://img.icons8.com/ios-filled/24/000000/add-user-male.png"/>  New patient entry**: Input a patient/athlete's ID, sex, weight, and height to instantly calculate and visualize their BMI.
-- **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> New patient BMI estimation**: Displays the BMI value and its classification according to the World Health Organization (WHO) standards.
-- **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/>  Download report**: Generate and download a PDF report of the BMI calculation for the new patient/athlete entry.
-- **<img src="https://img.icons8.com/ios-filled/24/000000/conference.png"/> Patient records**: View, search, filter, and edit all saved patient/athlete records in an interactive table. You can also download the filtered data in CSV, XLSX, or PDF formats.
+- **<img src="https://img.icons8.com/ios-filled/24/000000/add-user-male.png"/>  New person entry**: Input a person's ID, sex, weight, and height to instantly calculate and visualize their BMI.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> New person BMI estimation**: Displays the BMI value and its classification according to the World Health Organization (WHO) standards.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/>  Download report**: Generate and download a PDF report of the BMI calculation for the new person entry.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/conference.png"/> Registered data**: View, search, filter, and edit all registered data in an interactive table. You can also download the filtered data in CSV, XLSX, or PDF formats.  
 
 ## <img src="https://img.icons8.com/ios-filled/24/000000/idea.png"/> Future features and ideas for BMI Calculator App
 
