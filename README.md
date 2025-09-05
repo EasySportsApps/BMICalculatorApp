@@ -17,11 +17,11 @@ BMI Calculator App is a free and interactive web application developed with RStu
 
 In future versions, we are considering adding the following features:
 
-- **<img src="https://img.icons8.com/ios-filled/24/000000/calendar.png"/> Birth date input**: A new input to register the patient/athlete's birth date.  
-- **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> Automatic age calculation**: A new function to instantly calculate the patient/athlete's exact age in decimal years.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/calendar.png"/> Birth date input**: A new input to register the person's birth date.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> Automatic age calculation**: A new function to instantly calculate the person's exact age in decimal years.  
 - **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/> Report download button**: A new button in the interactive table to download reports for each record/row.  
-- **<img src="https://img.icons8.com/ios-filled/24/000000/email.png"/> Email report button**: A new button in the interactive table to send reports directly by email to the patient/athlete.  
-- **<img src="https://img.icons8.com/ios-filled/24/000000/line-chart.png"/> Patient progress plot**: A new plot to visualize the follow-up and evolution of each patient/athlete over time.
+- **<img src="https://img.icons8.com/ios-filled/24/000000/email.png"/> Email report button**: A new button in the interactive table to send reports directly by email to the person.  
+- **<img src="https://img.icons8.com/ios-filled/24/000000/line-chart.png"/> Person progress plot**: A new plot to visualize the follow-up and evolution of each person over time.
 
 If you have any suggestions for improvement, feel free to share them in the [Discussions](https://github.com/EasySportsApps/BMICalculatorApp/discussions) section of our GitHub repository or send us an [email](mailto:easysportsappsproject@gmail.com).  
 
