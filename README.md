@@ -6,7 +6,7 @@
 
 ## <img src="https://img.icons8.com/ios-filled/24/000000/document.png"/> About BMI Calculator App
 
-BMI Calculator App is a free and interactive web application developed with RStudio and Shiny. It allows anyone to monitor their own weight and BMI or that of another person over time. This tool should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. The app provides a secure and organized way to store this information and offers the following features:
+BMI Calculator App is a free and interactive web application developed with RStudio and Shiny. It allows anyone to monitor their own weight and BMI or that of another person over time. This tool should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. The app provides a secure and organized way to store the confidential information of registered persons and offers the following features:
 
 - **<img src="https://img.icons8.com/ios-filled/24/000000/add-user-male.png"/>  New person entry**: Input a person's ID, sex, weight, and height to instantly calculate and visualize their BMI.  
 - **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> New person BMI calculation**: Displays the BMI value and its classification according to the World Health Organization (WHO) standards.  
