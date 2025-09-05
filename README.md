@@ -2,7 +2,7 @@
 
 ## <img src="https://img.icons8.com/ios-filled/24/000000/internet.png"/> Online access to BMI Calculator App
 
-[BMI Calculator App - Version for adults](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
+[BMI Calculator App - Version for Adults](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
 
 ## <img src="https://img.icons8.com/ios-filled/24/000000/document.png"/> About BMI Calculator App
 
