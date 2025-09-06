@@ -18,6 +18,7 @@ ui <- fluidPage(
   
   # Load external scripts and styles: Firebase SDK (core, auth, firestore, analytics), FirebaseUI (CSS, JavaScript), CryptoJS, FontAwesome, and custom scripts/styles
   tags$head(
+    tags$meta(name = "viewport", content = "width=device-width, initial-scale=1, shrink-to-fit=no"),
     tags$title("BMI Calculator App"),
     tags$link(rel = "icon", href = "calculator.png", type = "image/png"),
     tags$script(src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"),
@@ -33,7 +34,15 @@ ui <- fluidPage(
     tags$script(src = "policies.js"),
     tags$script(src = "validate-decimals.js"),
     tags$script(src = "datatable-style.js"),
-    tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),
+    tags$script(
+      '
+      $(document).on("shiny:connected", function(event) {
+        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        Shiny.setInputValue("clientTimeZone", timezone, {priority: "event"});
+      });
+      '
+    )
   ),
   
   # Welcome
@@ -50,38 +59,55 @@ ui <- fluidPage(
   hidden(
     div(id = "main_ui",
         
-        # Header
-        div(style = "display: flex; justify-content: space-between; align-items: center;",
+        # Card 0: Header
+        div(class = "card-box",
+            style = "margin-top: 10px;",
+            
             div(style = "display: flex; flex-direction: column; align-items: flex-start;",
                 h2("BMI Calculator App", class = "app-header",
-                   style = "color: #2F4F4F; font-weight: bold; font-size: 2.5em; margin-bottom: 5px;"),
-                p("Version for Adult Patients",
+                   style = "color: #2F4F4F; font-weight: bold; font-size: 2.5em; margin-bottom: 0px;"),
+                p("Version for Adults",
                   style = "color: #696969; font-size: 1.1em; margin-top: 0;")
             ),
-            tags$button(
-              id = "logoutButton",
-              class = "btn-reject",
-              icon("sign-out-alt", style = "margin-right: 10px;"),
-              " Logout"
+            
+            div(style = "margin-top: 15px;",
+                actionButton(
+                  inputId = "logoutButton",
+                  label = tagList(icon("sign-out-alt", style = "margin-right: 10px;"), "Logout"),
+                  class = "btn-red"
+                )
             )
         ),
         
-        # Card 1: New patient entry
+        # Card 1: New person entry
         div(class = "card-box",
             style = "margin-top: 20px;",
-            h3(icon("user-plus"), "New patient entry", class = "card-title"),
+            h3(icon("user-plus"), "New person entry", class = "card-title"),
             
             fluidRow(
+              style = "margin-top: 30px;",
               column(6,
-                     textInput("patientId", "Patient ID", placeholder = "Example: BBB123456789", width = "100%")
+                     style = "margin-bottom: 20px;",
+                     tags$label("Person ID", `for` = "patientId"),
+                     tags$input(
+                       id = "patientId",
+                       type = "text",
+                       placeholder = "Examples: Raúl Hileno, 13, RH13",
+                       list = "patients",
+                       class = "form-control",
+                       style = "width: 100%;"
+                     ),
+                     uiOutput("patientDatalist")
               ),
               column(6,
+                     style = "margin-bottom: 20px;",
                      selectInput("sex", "Sex", choices = c("Select..." = "", "Female", "Male"), width = "100%")
               )
             ),
             
             fluidRow(
               column(6,
+                     style = "margin-bottom: 20px;",
                      tags$label("Weight (kg)", `for` = "weight"),
                      tags$input(
                        id = "weight",
@@ -96,6 +122,7 @@ ui <- fluidPage(
                      )
               ),
               column(6,
+                     style = "margin-bottom: 20px;",
                      tags$label("Height (m)", `for` = "height"),
                      tags$input(
                        id = "height",
@@ -111,29 +138,32 @@ ui <- fluidPage(
               )
             ),
             
-            div(style = "margin-top: 20px;",
+            div(style = "margin-top: 15px;",
                 actionButton("saveButton",
-                             tagList(icon("save", style = "margin-right: 10px;"), 
-                                     "Save patient"), class = "btn-configure")
+                             tagList(icon("save", style = "margin-right: 10px;"),
+                                     "Save data"), class = "btn-blue")
             )
-            
         ),
         
-        # Card 2: New patient BMI estimation
+        # Card 2: New person BMI calculation
         div(class = "card-box",
-            h3(icon("calculator"), "New patient BMI estimation", class = "card-title"),
-            plotOutput("bmiPlot", height = "600px"),
-            div(style = "margin-top: 20px;",
+            h3(icon("calculator"), "New person BMI calculation", class = "card-title"),
+            div(
+              style = "overflow-x: auto; width: 100%; margin-top: 30px;",
+              plotOutput("bmiPlot", height = "600px", width = "1000px")
+            ),
+            div(style = "margin-top: 15px;",
                 downloadButton("download_report", 
                                label = span("Download report", style = "margin-left: 10px;"),
-                               class = "btn-configure")
+                               class = "btn-blue")
             )
         ),
         
-        # Card 3: Patient records
+        # Card 3: Registered data
         div(class = "card-box",
-            h3(icon("users"), "Patient records", class = "card-title"),
-            uiOutput("recordsNote"),
+            h3(icon("users"), "Registered data", class = "card-title",
+               style = "margin-bottom: 30px;"),
+            uiOutput("recordsNote", style = "margin-bottom: 30px;"),
             DTOutput("recordsTable")
         )
     )
@@ -149,9 +179,9 @@ ui <- fluidPage(
       tags$p("We use cookies to improve your experience. Do you accept analytics and personalization cookies?"),
       tags$div(
         style = "display: flex; gap: 10px; margin-top: 15px; margin-bottom: 15px;",
-        tags$button(id = "acceptCookiesBtn", class = "btn-primary", "Accept all"),
-        tags$button(id = "rejectCookiesBtn", class = "btn-reject", "Reject all"),
-        tags$button(id = "configureCookiesBtn", class = "btn-configure", "Configure")
+        tags$button(id = "acceptCookiesBtn", class = "btn-green", "Accept all"),
+        tags$button(id = "rejectCookiesBtn", class = "btn-red", "Reject all"),
+        tags$button(id = "configureCookiesBtn", class = "btn-blue", "Configure")
       ),
       tags$div(
         id = "cookieConfigPanel", style = "display:none; margin-top: 15px;",
@@ -180,7 +210,7 @@ ui <- fluidPage(
             tags$small(style = "font-weight: normal;", "Allow remembering preferences and adjusting the user experience.")
           )
         ),
-        tags$button(id = "saveCookieSettingsBtn", class = "btn-configure", "Save settings")
+        tags$button(id = "saveCookieSettingsBtn", class = "btn-blue", "Save settings")
       )
     )
   ),
@@ -191,7 +221,7 @@ ui <- fluidPage(
           style = "width: 600px; max-width: 90%; margin: auto; padding: 40px; text-align: center;",
           h3(icon("calculator", style = "margin-right: 10px;"), "BMI Calculator App",
              style = "color: #2F4F4F; font-weight: bold; font-size: 2em; margin-bottom: 5px;"),
-          p("Version for Adult Patients",
+          p("Version for Adults",
             style = "color: #696969; font-size: 1em; margin-top: 0; margin-bottom: 20px;"),
           tags$div(id = "firebaseui-auth-container"),
           
@@ -246,8 +276,14 @@ ui <- fluidPage(
           tags$div(class = "login-info",
                    tags$h5(icon("info-circle", style = "margin-right: 10px;"), "Important information"),
                    tags$p(
+                     icon("desktop", style = "margin-right: 10px;"), tags$strong("About BMI Calculator App:"),
+                     "This free and interactive web application, developed with RStudio and Shiny, allows anyone to monitor their own weight and BMI or that of another person over time. 
+                     It should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. 
+                     The app provides a secure and organized way to store registered confidential information."
+                   ),
+                   tags$p(
                      icon("envelope", style = "margin-right: 10px;"), tags$strong(" Sign in with email:"),
-                     " Choose this option if you wish to use the BMI Calculator App regularly and securely store your patient records in Firebase, a cloud platform provided by Google. 
+                     " Choose this option if you wish to use the BMI Calculator App regularly and securely store your registered data in Firebase, a set of backend cloud computing services provided by Google. 
                      To create an account with your email, follow the steps below."
                    ),
                    tags$ul(
@@ -271,9 +307,9 @@ ui <- fluidPage(
                        tags$strong("Step 4: "),
                        "Create a ",
                        tags$strong("personal encryption password"),
-                       " (from 8 to 20 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character), then click ”Next”. For security, this password should be different from your login password. It encrypts your patients' data so only you can access it. ",
+                       " (from 8 to 20 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character), then click ”Next”. For security, this password should be different from your login password. It encrypts your registered data so only you can access it. ",
                        tags$strong("This password is not recoverable."),
-                       " If forgotten or entered incorrectly, your encrypted records stored in Firebase will not be visible."
+                       " If forgotten or entered incorrectly, your encrypted registered records stored in Firebase will not be visible."
                      )
                    ),
                    tags$p(
@@ -339,12 +375,14 @@ ui <- fluidPage(
                 )
               ),
               tags$hr(),
-              tags$h4(strong("2. Purpose of the Shiny app"), style = "text-align: justify;"),
+              tags$h4(strong("2. Purpose of the app"), style = "text-align: justify;"),
               tags$p(
                 style = "text-align: justify;",
-                "  This Shiny app, called BMI Calculator App - Version for Adult Patients, is designed to calculate the body mass index (BMI) of adult patients based on their height and weight.
-                It allows users to enter new patient data, securely store encrypted records in a Firebase database, and generate BMI visualizations."
+                "This Shiny app, called BMI Calculator App - Version for Adults, is designed to calculate and monitor the Body Mass Index (BMI) of adults based on their height and weight. 
+                It allows users to enter new person data and securely store encrypted registered data in Firebase, a set of backend cloud computing services provided by Google."
               ),
+              
+              
               tags$hr(),
               tags$h4(strong("3. Terms of use"), style = "text-align: justify;"),
               tags$p(
@@ -384,10 +422,10 @@ ui <- fluidPage(
               tags$p(
                 style = "text-align: justify;",
                 "This Shiny app registers users’ email addresses when they create a personal account using the “Sign in with email” option. 
-                These email addresses, along with encrypted patient data, are securely stored in Firebase, a cloud platform provided by Google. 
-                Specifically, email addresses are managed through Firebase Authentication, while patient data is encrypted on the client side before being stored in the Firebase Firestore Database. 
+                These email addresses, along with encrypted registered data, are securely stored in Firebase, a set of backend cloud computing services provided by Google. 
+                Specifically, email addresses are managed through Firebase Authentication, while registered data is encrypted on the client side before being stored in the Firebase Firestore Database. 
                 Login passwords are not stored but can be reset via Firebase upon users’ request.
-                Personal encryption passwords—used to encrypt patient data before uploading to Firebase and to decrypt it within the BMI Calculator App when restarted—are never stored or recoverable. 
+                Personal encryption passwords—used to encrypt registered data before uploading to Firebase and to decrypt it within the BMI Calculator App when restarted—are never stored or recoverable. 
                 Users are solely responsible for remembering their encryption password. 
                 All information collected in Firebase is used exclusively for the operation of this Shiny app, is never shared with third parties, and is not used for commercial purposes. 
                 Users who choose the “Continue as guest” option do not register with an email. Data recorded as a guest isn't encrypted, and the anonymous guest account will be automatically deleted after up to 30 days."
@@ -490,20 +528,55 @@ server <- function(input, output, session) {
   })
   
   #=============================================================================
-  # 📦 Reactive variables for storing patient data
+  # 📦 Reactive variables for storing registered data
   #=============================================================================
   
-  # Store all patient records retrieved from Firebase
-  patientData <- reactiveVal(data.frame())
+  # Store all registered data retrieved from Firebase
+  personData <- reactiveVal(data.frame())
   
-  # Store the last patient entry to highlight it in the BMI plot
+  # Store the last person entry to highlight it in the BMI plot
   lastRecordToPlot <- reactiveVal(NULL)
   
-  # Store the last patient entry in the data table for report generation
+  # Store the last person entry in the data table for report generation
   lastRecordTable <- reactiveVal(NULL)
   
   #=============================================================================
-  # 🔄 Process and transform patient data from Firebase
+  # 📝 Update datalist for Patient ID input dynamically
+  #=============================================================================
+  
+  observe({
+    df <- personData()
+    patient_ids <- if (nrow(df) > 0) unique(df$patientId) else character(0)
+    
+    output$patientDatalist <- renderUI({
+      tags$datalist(
+        id = "patients",
+        lapply(patient_ids, function(x) tags$option(value = x))
+      )
+    })
+  })
+  
+  #=============================================================================
+  # 🧩 Autocomplete Sex and Height when existing Patient ID is selected
+  #=============================================================================
+  
+  observeEvent(input$patientId, {
+    df <- personData()
+    if (!is.null(input$patientId) && input$patientId != "" && input$patientId %in% df$patientId) {
+      selected_row <- df[df$patientId == input$patientId, ]
+      updateSelectInput(session, "sex", selected = selected_row$sex[1])
+      updateNumericInput(session, "weight", value = "")
+      updateNumericInput(session, "height", value = "")
+    } else {
+      updateSelectInput(session, "sex", selected = "")
+      updateNumericInput(session, "weight", value = "")
+      updateNumericInput(session, "height", value = "")
+
+    }
+  })
+  
+  #=============================================================================
+  # 🔄 Process and transform registered data from Firebase
   #=============================================================================
   
   bmi_zone <- function(bmi) {
@@ -520,7 +593,7 @@ server <- function(input, output, session) {
     data <- input$userData
     
     if (is.null(data) || length(data) == 0) {
-      patientData(data.frame())
+      personData(data.frame())
       lastRecordToPlot(NULL)
       return()
     }
@@ -538,29 +611,28 @@ server <- function(input, output, session) {
       df$timestamp <- as.numeric(df$timestamp)
       df$bmi <- ifelse(is.na(df$height) | df$height == 0, NA, round(df$weight / (df$height^2), 2))
       df$bmi_zone <- sapply(df$bmi, bmi_zone)
-      df$date <- format(as.POSIXct(df$timestamp / 1000, origin = "1970-01-01"), "%Y-%m-%d %H:%M:%S")
       df <- df[order(df$timestamp, decreasing = TRUE), ]
       rownames(df) <- NULL
-      patientData(df)
+      personData(df)
       
     }, error = function(e) {
       showNotification(paste("Error processing data:", e$message), type = "error", duration = 5)
-      patientData(data.frame())
+      personData(data.frame())
       lastRecordToPlot(NULL)
     })
   })
   
   #=============================================================================
-  # 💾 Save new patient entry data to Firebase
+  # 💾 Save new person entry data to Firebase
   #=============================================================================
   
   observeEvent(input$saveButton, {
-    patient_id <- trimws(input$patientId)
+    person_id <- trimws(input$patientId)
     sex <- input$sex
     weight <- as.numeric(input$weight)
     height <- as.numeric(input$height)
-    if (patient_id == "") {
-      showNotification("Patient ID is required.", type = "error")
+    if (person_id == "") {
+      showNotification("Person ID is required.", type = "error")
       return()
     }
     if (!(sex %in% c("Female", "Male"))) {
@@ -576,7 +648,7 @@ server <- function(input, output, session) {
       return()
     }
     session$sendCustomMessage(type = "saveData", message = list(
-      patientId = patient_id,
+      patientId = person_id,
       sex = sex,
       weight = weight,
       height = height
@@ -588,7 +660,7 @@ server <- function(input, output, session) {
   })
   
   #=============================================================================
-  # ✅ Append new patient entry data after Firebase confirms save
+  # ✅ Append new person entry data after Firebase confirms save
   #=============================================================================
   
   observeEvent(input$newRecordSaved, {
@@ -605,14 +677,13 @@ server <- function(input, output, session) {
     new_row$bmi <- ifelse(is.na(new_row$height) || new_row$height == 0, NA,
                           round(new_row$weight / (new_row$height^2), 2))
     new_row$bmi_zone <- bmi_zone(new_row$bmi)
-    new_row$date <- format(as.POSIXct(new_row$timestamp / 1000, origin = "1970-01-01"), "%Y-%m-%d %H:%M:%S")
-    current_data <- isolate(patientData())
+    current_data <- isolate(personData())
     
     updated_data <- rbind(new_row, current_data)
     updated_data <- updated_data[order(updated_data$timestamp, decreasing = TRUE), ]
     rownames(updated_data) <- NULL
     
-    patientData(updated_data)
+    personData(updated_data)
     
     lastRecordToPlot(list(
       firestore_id = new_row$firestore_id,
@@ -724,11 +795,11 @@ server <- function(input, output, session) {
   })
   
   #=============================================================================
-  # 🧮 Render data table of patient records
+  # 🧮 Render data table
   #=============================================================================
   
   output$recordsNote <- renderUI({
-    df <- patientData()
+    df <- personData()
     if (nrow(df) == 0) return(NULL)
     div(
       class = "alert alert-info",
@@ -739,16 +810,16 @@ server <- function(input, output, session) {
   })
   
   output$recordsTable <- renderDT({
-    df <- patientData()
+    df <- personData()
     if (nrow(df) == 0) return(NULL)
     
-    df$actions <- sapply(df$firestore_id, function(id) {
+    df$delete_button <- sapply(df$firestore_id, function(id) {
       as.character(
         tags$button(
-          class = "btn-reject delete_btn",
+          class = "btn-red delete_btn",
           style = "padding: 5px 10px; font-size: 12px;",
           onclick = sprintf("if(confirm('Are you sure you want to delete this record?')) { Shiny.setInputValue('delete_firestore_id', '%s', {priority: 'event'}); }", id),
-          tagList(icon("trash", style = "margin-right: 10px;"), " Delete")
+          icon("trash")
         )
       )
     })
@@ -767,11 +838,11 @@ server <- function(input, output, session) {
     )
     
     datatable(
-      df[, c("patientId", "date", "sex", "weight", "height", "bmi", "bmi_zone", "actions")],
-      colnames = c("Patient ID", "Evaluation date", "Sex", "Weight (kg)", "Height (m)", "BMI (kg/m²)", "BMI zone", "Actions"),
+      df[, c("patientId", "timestamp", "sex", "weight", "height", "bmi", "bmi_zone", "delete_button")],
+      colnames = c("Person ID", "Evaluation date", "Sex", "Weight (kg)", "Height (m)", "BMI (kg/m²)", "BMI zone", "Delete"),
       rownames = FALSE,
       escape = FALSE,
-      extensions = 'Buttons',
+      extensions = c('Buttons', 'FixedHeader'),
       plugins = 'natural',
       editable = list(
         target = "cell",
@@ -779,6 +850,17 @@ server <- function(input, output, session) {
       ),
       options = list(
         dom = 'Bfrtip',
+        order = list(list(1, 'desc')),
+        pageLength = 20,
+        autoWidth = FALSE,
+        fixedHeader = list(
+          header = TRUE,
+          headerOffset = 0,
+          fixedPosition = TRUE
+        ),
+        scrollX = TRUE, 
+        scrollY = "287px",
+        scrollCollapse = TRUE,
         initComplete = JS("function(settings, json) {
           window.customDataTableInitComplete.call(this, settings, json);
         }"),
@@ -788,9 +870,9 @@ server <- function(input, output, session) {
         buttons = list(
           list(
             extend = 'csv',
-            text = '<i class="fa fa-file-csv" style="margin-right: 5px;"></i> CSV',
-            titleAttr = "Export patient records in CSV format",
-            filename = 'patient_records',
+            text = '<i class="fa fa-file-csv"></i>',
+            titleAttr = "Export data in CSV format",
+            filename = 'registered_data',
             title = NULL,
             exportOptions = list(
               charset = "UTF-8",
@@ -803,23 +885,23 @@ server <- function(input, output, session) {
           ),
           list(
             extend = 'excel',
-            text = '<i class="fa fa-file-excel" style="margin-right: 5px;"></i> XLSX',
-            titleAttr = "Export patient records in XLSX (Excel) format",
-            filename = 'patient_records',
+            text = '<i class="fa fa-file-excel"></i>',
+            titleAttr = "Export data in XLSX (Excel) format",
+            filename = 'registered_data',
             title = NULL,
             exportOptions = list(
               orthogonal = 'export',
               columns = c(0:6)
             ),
             customize = JS("function(xlsx) {
-              return window.customExcelExport(xlsx);   
+              return window.customExcelExport(xlsx);
             }")
           ),
           list(
             extend = 'pdf',
-            text = '<i class="fa fa-file-pdf" style="margin-right: 5px;"></i> PDF',
-            titleAttr = "Export patient records in PDF format",
-            filename = 'patient_records',
+            text = '<i class="fa fa-file-pdf"></i>',
+            titleAttr = "Export data in PDF format",
+            filename = 'registered_data',
             title = NULL,
             orientation = "portrait",
             pageSize = "A4",
@@ -839,10 +921,24 @@ server <- function(input, output, session) {
         columnDefs = list(
           list(className = 'dt-center', targets = '_all'),
           list(type = 'natural', targets = 0:5),
-          list(orderable = FALSE, targets = 7)
-        ),
-        order = list(list(1, 'desc')),
-        pageLength = 20
+          list(orderable = FALSE, targets = 7),
+          list(
+            targets = 1,
+            render = JS("function(data, type, row, meta) {
+              if (type === 'display') {
+                var date = new Date(data);
+                var year = date.getFullYear();
+                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                var day = ('0' + date.getDate()).slice(-2);
+                var hours = ('0' + date.getHours()).slice(-2);
+                var minutes = ('0' + date.getMinutes()).slice(-2);
+                var seconds = ('0' + date.getSeconds()).slice(-2);
+                return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+                }
+                return data;
+            }")
+          )
+        )
       )
     ) |>
       formatCurrency(columns = "weight", currency = "", digits = 1) |>
@@ -881,7 +977,7 @@ server <- function(input, output, session) {
   
   observeEvent(input$recordsTable_cell_edit, {
     info <- input$recordsTable_cell_edit
-    df <- isolate(patientData())
+    df <- isolate(personData())
     col_map <- c("patientId", NA, "sex", "weight", "height", NA, NA)
     col_name <- col_map[info$col + 1]
     if (is.na(col_name)) return()
@@ -895,7 +991,7 @@ server <- function(input, output, session) {
     
     df <- df[order(df$timestamp, decreasing = TRUE), ]
     rownames(df) <- NULL
-    patientData(df)
+    personData(df)
     
     record_to_update <- df[info$row, ]
     
@@ -908,6 +1004,8 @@ server <- function(input, output, session) {
         height = record_to_update$height
       ))
     }
+    
+    lastRecordTable(record_to_update)
     
     session$sendCustomMessage(type = "updateData", message = list(
       firestore_id = record_to_update$firestore_id,
@@ -926,49 +1024,53 @@ server <- function(input, output, session) {
   observeEvent(input$delete_firestore_id, {
     req(input$delete_firestore_id)
     id_to_delete <- input$delete_firestore_id
-    current_data <- isolate(patientData())
+    current_data <- isolate(personData())
     current_plot_record <- isolate(lastRecordToPlot())
-    
+    current_table_record <- isolate(lastRecordTable())
+
     if (!is.null(current_plot_record) && current_plot_record$firestore_id == id_to_delete) {
       lastRecordToPlot(NULL)
     }
     
+    if (!is.null(current_table_record) && current_table_record$firestore_id == id_to_delete) {
+      lastRecordTable(NULL)
+    }
+    
     updated_data <- current_data[current_data$firestore_id != id_to_delete, ]
-    patientData(updated_data)
+    personData(updated_data)
     
     session$sendCustomMessage(type = "deleteDataOnly", message = list(firestore_id = id_to_delete))
     showNotification("Record deleted successfully.", type = "message", duration = 5)
   })
   
   #=============================================================================
-  # 📄 Generate and download patient PDF reportse
+  # 📄 Generate and download PDF reports
   #=============================================================================
   
   output$download_report <- downloadHandler(
     filename = function() {
       record <- lastRecordTable()
-      if (is.null(record) || is.null(record$date)) {
-        paste0("bmireport_unknownid_date", Sys.Date(), ".pdf")
-      } else {
-        idnumber <- record$patientId
-        dateyyyymmdd <- format(as.POSIXct(record$date), "%Y-%m-%d")
-        timehhmmss <- format(as.POSIXct(record$date), "%H.%M.%S")
-        paste0("bmireport_id", idnumber, "_date", dateyyyymmdd, "_time", timehhmmss, ".pdf")
-      }
+      req(record)
+      client_tz <- input$clientTimeZone
+      date_time <- as.POSIXct(record$timestamp / 1000, origin = "1970-01-01", tz = client_tz)
+      idnumber <- record$patientId
+      dateyyyymmdd <- format(date_time, "%Y-%m-%d")
+      timehhmmss <- format(date_time, "%H.%M.%S")
+      paste0("bmireport_id", idnumber, "_date", dateyyyymmdd, "_time", timehhmmss, ".pdf")
     },
     content = function(file) {
       record <- lastRecordTable()
-      if (is.null(record)) {
-        showNotification("No patient record available to generate report.", type = "error")
-        return(NULL)
-      }
+      req(record)
       
-      tempReport <- file.path(tempdir(), "patient-report.Rmd")
-      file.copy("patient-report.Rmd", tempReport, overwrite = TRUE)
+      client_tz <- input$clientTimeZone
+      date_formatted <- as.POSIXct(record$timestamp / 1000, origin = "1970-01-01", tz = client_tz)
+      
+      tempReport <- file.path(tempdir(), "bmireport.Rmd")
+      file.copy("bmireport.Rmd", tempReport, overwrite = TRUE)
       
       params <- list(
-        date = record$date,
-        patient_id = record$patientId,
+        date = date_formatted,
+        person_id = record$patientId,
         sex = record$sex,
         weight = record$weight,
         height = record$height,
@@ -983,6 +1085,7 @@ server <- function(input, output, session) {
       )
     }
   )
+  
 }
 
 #===============================================================================
