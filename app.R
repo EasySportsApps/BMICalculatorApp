@@ -320,7 +320,7 @@ ui <- fluidPage(
                    tags$p(
                      icon("headset", style = "margin-right: 10px;"), tags$strong(" Technical support and help:"),
                      " If you run into any technical issues, have questions about the app, or wish for your account and all associated data to be permanently deleted from Firebase, please ",
-                     tags$a(href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/", target = "_blank", "contact the app owner here."),
+                     tags$a(href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app", target = "_blank", "contact the app owner here."),
                      " You'll get a response as soon as possible."
                    )
           )
@@ -368,7 +368,7 @@ ui <- fluidPage(
                 tags$li(
                   tags$strong("Website:"), " ",
                   tags$a(
-                    href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/es.html#",
+                    href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app",
                     target = "_blank",
                     "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app"
                   )
@@ -435,7 +435,7 @@ ui <- fluidPage(
               tags$p(
                 style = "text-align: justify;",
                 "In accordance with the General Data Protection Regulation (GDPR), users may request access to, rectification or deletion of, or objection to the processing of their personal data by sending a request ",
-                tags$a(href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/es.html", target = "_blank", "here"),
+                tags$a(href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app", target = "_blank", "here"),
                 " to the owner of this Shiny app."
               ),
               tags$hr(),
