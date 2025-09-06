@@ -65,13 +65,26 @@ window.customDataTableInitComplete = function(settings, json) {
 };
 
 window.customCsvExport = function(csv) {
-  var header = 'patient_id;evaluation_date;sex;weight;height;bmi;bmi_zone\n';
+  var header = 'person_id;evaluation_date;sex;weight;height;bmi;bmi_zone\n';
   var rows = csv.split('\n');
   var processedRows = rows.slice(1).filter(row => row.trim() !== '').map(function(row) {
     row = row.replace(/\",\"/g, ';');
     var columns = row.split(';').map(function(val) {
       return val.replace(/\"/g, '');
     });
+    
+    var timestamp = parseInt(columns[1]);
+    if (!isNaN(timestamp)) {
+      var date = new Date(timestamp);
+      var year = date.getFullYear();
+      var month = ('0' + (date.getMonth() + 1)).slice(-2);
+      var day = ('0' + date.getDate()).slice(-2);
+      var hours = ('0' + date.getHours()).slice(-2);
+      var minutes = ('0' + date.getMinutes()).slice(-2);
+      var seconds = ('0' + date.getSeconds()).slice(-2);
+      columns[1] = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    }
+
     [3, 4, 5].forEach(function(index) {
       if (columns[index] && columns[index].includes('.')) {
         columns[index] = columns[index].replace('.', ',');
@@ -84,21 +97,38 @@ window.customCsvExport = function(csv) {
 
 window.customExcelExport = function(xlsx) {
   var sheet = xlsx.xl.worksheets['sheet1.xml'];
-  var headers = ['patient_id', 'evaluation_date', 'sex', 'weight', 'height', 'bmi', 'bmi_zone'];
+  var headers = ['person_id', 'evaluation_date', 'sex', 'weight', 'height', 'bmi', 'bmi_zone'];
   
   $('row:first c', sheet).each(function(i) {
     $(this).find('t').text(headers[i]);
   });
+  
+  $('row:gt(0)', sheet).each(function() {
+    var $row = $(this);
+    
+    var $dateCell = $('c[r^="B"]', $row);
+    var timestamp = parseInt($dateCell.find('v').text());
 
-  $('row:gt(0) c', sheet).each(function(i) {
-    var colIndex = i % headers.length;
-    if ([3, 4, 5].includes(colIndex)) {
-      var $t = $(this).find('t');
-      var text = $t.text();
-      if (text) {
-        $t.text(text.replace('.', ','));
-      }
+    if (!isNaN(timestamp)) {
+      var date = new Date(timestamp);
+      var year = date.getFullYear();
+      var month = ('0' + (date.getMonth() + 1)).slice(-2);
+      var day = ('0' + date.getDate()).slice(-2);
+      var hours = ('0' + date.getHours()).slice(-2);
+      var minutes = ('0' + date.getMinutes()).slice(-2);
+      var seconds = ('0' + date.getSeconds()).slice(-2);
+      
+      $dateCell.attr('t', 's');
+      $dateCell.html('<is><t>' + year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds + '</t></is>');
     }
+    
+    ['D', 'E', 'F'].forEach(function(colLetter) {
+      var $cell = $('c[r^="' + colLetter + '"]', $row);
+      var text = $cell.find('t').text();
+      if (text) {
+        $cell.find('t').text(text.replace('.', ','));
+      }
+    });
   });
 };
 

@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
       return bytes.toString(CryptoJS.enc.Utf8);
     }
 
-    db.collection("users").doc(user.uid).collection("patients")
+    db.collection("users").doc(user.uid).collection("records")
       .get()
       .then((querySnapshot) => {
         const data = [];
@@ -188,6 +188,8 @@ Shiny.addCustomMessageHandler("saveData", function (data) {
   }
 
   const db = firebase.firestore();
+  
+  const clientTimestamp = new Date();
 
   let dataToSave;
   if (user.isAnonymous) {
@@ -196,7 +198,7 @@ Shiny.addCustomMessageHandler("saveData", function (data) {
       sex: data.sex,
       weight: data.weight,
       height: data.height,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: clientTimestamp
     };
   } else {
     dataToSave = {
@@ -204,11 +206,11 @@ Shiny.addCustomMessageHandler("saveData", function (data) {
       sex: encrypt(data.sex),
       weight: encrypt(data.weight),
       height: encrypt(data.height),
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: clientTimestamp
     };
   }
   
-  db.collection("users").doc(user.uid).collection("patients").add(dataToSave)
+  db.collection("users").doc(user.uid).collection("records").add(dataToSave)
     .then((docRef) => {
       console.log("✅ Data saved to Firestore successfully with ID:", docRef.id);
       
@@ -218,7 +220,7 @@ Shiny.addCustomMessageHandler("saveData", function (data) {
         sex: data.sex,
         weight: data.weight,
         height: data.height,
-        timestamp: new Date().getTime()
+        timestamp: clientTimestamp.getTime()
       };
       
       Shiny.setInputValue("newRecordSaved", newRecord, { priority: "event" });
@@ -271,7 +273,7 @@ Shiny.addCustomMessageHandler("updateData", function(data) {
       };
   }
   
-  db.collection("users").doc(user.uid).collection("patients").doc(docId)
+  db.collection("users").doc(user.uid).collection("records").doc(docId)
     .update(dataToUpdate)
     .then(() => {
         console.log("✅ Document successfully updated in Firestore.");
@@ -300,7 +302,7 @@ Shiny.addCustomMessageHandler("deleteDataOnly", function(data) {
     return;
   }
 
-  db.collection("users").doc(user.uid).collection("patients").doc(docId).delete()
+  db.collection("users").doc(user.uid).collection("records").doc(docId).delete()
     .then(() => {
       console.log("✅ SUCCESS: Document successfully deleted from Firestore (no re-fetch).");
     })
