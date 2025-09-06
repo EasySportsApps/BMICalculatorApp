@@ -357,7 +357,7 @@ ui <- fluidPage(
                 "In compliance with current regulations, users are informed of the following data:"
               ),
               tags$ul(
-                style = "text-align: justify; margin-left: 0; padding-left: 1.2em;",
+                style = "text-align: left; margin-left: 0; padding-left: 1.2em;",
                 tags$li(tags$strong("Name:"), " Raúl Hileno González"),
                 tags$li(tags$strong("NIF:"), " 46803506R"),
                 tags$li(tags$strong("Address:"), " Carrer d'en Xanxo, 41, 25110, Alpicat (Lleida)"),
