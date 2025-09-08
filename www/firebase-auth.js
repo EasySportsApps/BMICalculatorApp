@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const d = doc.data();
           data.push({
             firestore_id: doc.id,
-            patientId: decrypt(d.patientId),
+            personId: decrypt(d.personId),
             sex: decrypt(d.sex),
             weight: parseFloat(decrypt(d.weight)),
             height: parseFloat(decrypt(d.height)),
@@ -194,7 +194,7 @@ Shiny.addCustomMessageHandler("saveData", function (data) {
   let dataToSave;
   if (user.isAnonymous) {
     dataToSave = {
-      patientId: data.patientId,
+      personId: data.personId,
       sex: data.sex,
       weight: data.weight,
       height: data.height,
@@ -202,7 +202,7 @@ Shiny.addCustomMessageHandler("saveData", function (data) {
     };
   } else {
     dataToSave = {
-      patientId: encrypt(data.patientId),
+      personId: encrypt(data.personId),
       sex: encrypt(data.sex),
       weight: encrypt(data.weight),
       height: encrypt(data.height),
@@ -216,7 +216,7 @@ Shiny.addCustomMessageHandler("saveData", function (data) {
       
       const newRecord = {
         firestore_id: docRef.id,
-        patientId: data.patientId,
+        personId: data.personId,
         sex: data.sex,
         weight: data.weight,
         height: data.height,
@@ -259,14 +259,14 @@ Shiny.addCustomMessageHandler("updateData", function(data) {
   let dataToUpdate;
   if (user.isAnonymous) {
       dataToUpdate = {
-        patientId: data.patientId,
+        personId: data.personId,
         sex: data.sex,
         weight: data.weight,
         height: data.height
       };
   } else {
       dataToUpdate = {
-        patientId: encrypt(data.patientId),
+        personId: encrypt(data.personId),
         sex: encrypt(data.sex),
         weight: encrypt(data.weight),
         height: encrypt(data.height)
