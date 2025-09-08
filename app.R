@@ -16,25 +16,35 @@ library(shinyjs)
 ui <- fluidPage(
   useShinyjs(),
   
-  # Load external scripts and styles: Firebase SDK (core, auth, firestore, analytics), FirebaseUI (CSS, JavaScript), CryptoJS, FontAwesome, and custom scripts/styles
+  # UI dependencies
   tags$head(
+    # Basic HTML tags for responsive design and app title
     tags$meta(name = "viewport", content = "width=device-width, initial-scale=1, shrink-to-fit=no"),
     tags$title("BMI Calculator App"),
     tags$link(rel = "icon", href = "calculator.png", type = "image/png"),
+    
+    # External CSS stylesheets
+    tags$link(rel = "stylesheet", type = "text/css", href = "https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css"),
+    tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"),
+    
+    # External JavaScript libraries (core SDKs)
     tags$script(src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"),
     tags$script(src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"),
     tags$script(src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"),
     tags$script(src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"),
-    tags$link(rel = "stylesheet", type = "text/css", href = "https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css"),
     tags$script(src = "https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"),
     tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"),
-    tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"),
     tags$script(src = "https://cdn.datatables.net/plug-ins/2.3.2/sorting/natural.js"),
+    tags$script(src = "https://www.paypalobjects.com/donate/sdk/donate-sdk.js", charset = "UTF-8"),
+    
+    # Local custom scripts and styles
     tags$script(src = "cookie-consent.js"),
     tags$script(src = "policies.js"),
     tags$script(src = "validate-decimals.js"),
     tags$script(src = "datatable-style.js"),
     tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),
+    
+    # Inline scripts for specific functionalities
     tags$script(
       '
       $(document).on("shiny:connected", function(event) {
@@ -42,6 +52,21 @@ ui <- fluidPage(
         Shiny.setInputValue("clientTimeZone", timezone, {priority: "event"});
       });
       '
+    ),
+    tags$script(
+      '
+        $(document).ready(function() {
+            PayPal.Donation.Button({
+              env: "production",
+              hosted_button_id: "BA84P5Y2MC7MN",
+              image: {
+                src: "https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif",
+                alt: "Donate",
+                title: "Support the development of Shiny Web Apps",
+              }
+            }).render("#donate-button");
+        });
+        '
     )
   ),
   
@@ -88,16 +113,16 @@ ui <- fluidPage(
               style = "margin-top: 30px;",
               column(6,
                      style = "margin-bottom: 20px;",
-                     tags$label("Person ID", `for` = "patientId"),
+                     tags$label("Person ID", `for` = "personId"),
                      tags$input(
-                       id = "patientId",
+                       id = "personId",
                        type = "text",
                        placeholder = "Examples: Raúl Hileno, 13, RH13",
-                       list = "patients",
+                       list = "persons",
                        class = "form-control",
                        style = "width: 100%;"
                      ),
-                     uiOutput("patientDatalist")
+                     uiOutput("personDatalist")
               ),
               column(6,
                      style = "margin-bottom: 20px;",
@@ -223,14 +248,15 @@ ui <- fluidPage(
              style = "color: #2F4F4F; font-weight: bold; font-size: 2em; margin-bottom: 5px;"),
           p("Version for Adults",
             style = "color: #696969; font-size: 1em; margin-top: 0; margin-bottom: 20px;"),
-          tags$div(id = "firebaseui-auth-container"),
           
+          # Login buttons
+          tags$div(id = "firebaseui-auth-container"),
           tags$div(
             id = "email_verification_notice",
             style = "display:none; color: #e23748; font-weight: bold; margin-top: 20px;",
             tags$span(
               icon("exclamation-triangle", style = "margin-right: 10px;"),
-              HTML("A verification email has been sent.<br>Please check your email inbox or spam folder.")
+              HTML("Verification sent.<br>Check your email or spam.")
             )
           ),
           tags$button(
@@ -239,14 +265,12 @@ ui <- fluidPage(
             style = "display:none; margin-top: 20px;",
             "DONE"
           ),
-          
-          # Encryption password prompt
           tags$div(
             id = "encryption_key_prompt",
             style = "display:none; color: #e23748; font-weight: bold; margin-top: 20px;",
             tags$span(
-              icon("key", style = "margin-right: 10px;"),
-              HTML("Enter your personal encryption password.<br>Please read the important information below.")
+              icon("exclamation-triangle", style = "margin-right: 10px;"),
+              HTML("Enter your encryption password.<br>Read the important information below.")
             ),
             tags$input(
               id = "encryption_key_input",
@@ -272,8 +296,15 @@ ui <- fluidPage(
             )
           ),
           
+          # Donate button
+          tags$div(
+            id = "donate-button-container",
+            style = "text-align: center; margin-top: 40px",
+            tags$div(id = "donate-button")
+          ),
+          
           # Important information
-          tags$div(class = "login-info",
+          tags$div(class = "login-info", style = "margin-top: 0px;",
                    tags$h5(icon("info-circle", style = "margin-right: 10px;"), "Important information"),
                    tags$p(
                      icon("desktop", style = "margin-right: 10px;"), tags$strong("About BMI Calculator App:"),
@@ -323,8 +354,7 @@ ui <- fluidPage(
                      tags$a(href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app", target = "_blank", "contact the app owner here."),
                      " You'll get a response as soon as possible."
                    )
-          )
-          ,
+          ),
           
           # Legal footer
           tags$div(
@@ -541,29 +571,29 @@ server <- function(input, output, session) {
   lastRecordTable <- reactiveVal(NULL)
   
   #=============================================================================
-  # 📝 Update datalist for Patient ID input dynamically
+  # 📝 Update datalist for Person ID input dynamically
   #=============================================================================
   
   observe({
     df <- personData()
-    patient_ids <- if (nrow(df) > 0) unique(df$patientId) else character(0)
+    person_ids <- if (nrow(df) > 0) unique(df$personId) else character(0)
     
-    output$patientDatalist <- renderUI({
+    output$personDatalist <- renderUI({
       tags$datalist(
-        id = "patients",
-        lapply(patient_ids, function(x) tags$option(value = x))
+        id = "persons",
+        lapply(person_ids, function(x) tags$option(value = x))
       )
     })
   })
   
   #=============================================================================
-  # 🧩 Autocomplete Sex and Height when existing Patient ID is selected
+  # 🧩 Autocomplete Sex and Height when existing Person ID is selected
   #=============================================================================
   
-  observeEvent(input$patientId, {
+  observeEvent(input$personId, {
     df <- personData()
-    if (!is.null(input$patientId) && input$patientId != "" && input$patientId %in% df$patientId) {
-      selected_row <- df[df$patientId == input$patientId, ]
+    if (!is.null(input$personId) && input$personId != "" && input$personId %in% df$personId) {
+      selected_row <- df[df$personId == input$personId, ]
       updateSelectInput(session, "sex", selected = selected_row$sex[1])
       updateNumericInput(session, "weight", value = "")
       updateNumericInput(session, "height", value = "")
@@ -601,10 +631,10 @@ server <- function(input, output, session) {
     tryCatch({
       n_fields <- 6
       mat <- matrix(unlist(data), ncol = n_fields, byrow = TRUE)
-      colnames(mat) <- c("firestore_id", "patientId", "sex", "weight", "height", "timestamp")
+      colnames(mat) <- c("firestore_id", "personId", "sex", "weight", "height", "timestamp")
       df <- as.data.frame(mat, stringsAsFactors = FALSE)
       df$firestore_id <- as.character(df$firestore_id)
-      df$patientId <- as.character(df$patientId)
+      df$personId <- as.character(df$personId)
       df$sex <- as.character(df$sex)
       df$weight <- as.numeric(df$weight)
       df$height <- as.numeric(df$height)
@@ -627,7 +657,7 @@ server <- function(input, output, session) {
   #=============================================================================
   
   observeEvent(input$saveButton, {
-    person_id <- trimws(input$patientId)
+    person_id <- trimws(input$personId)
     sex <- input$sex
     weight <- as.numeric(input$weight)
     height <- as.numeric(input$height)
@@ -648,13 +678,13 @@ server <- function(input, output, session) {
       return()
     }
     session$sendCustomMessage(type = "saveData", message = list(
-      patientId = person_id,
+      personId = person_id,
       sex = sex,
       weight = weight,
       height = height
     ))
     showNotification("Record saved successfully!", type = "message")
-    updateTextInput(session, "patientId", value = "")
+    updateTextInput(session, "personId", value = "")
     updateSelectInput(session, "sex", selected = "")
     runjs("document.getElementById('weight').value = ''; document.getElementById('height').value = '';")
   })
@@ -667,7 +697,7 @@ server <- function(input, output, session) {
     newData <- input$newRecordSaved
     new_row <- data.frame(
       firestore_id = newData$firestore_id,
-      patientId = newData$patientId,
+      personId = newData$personId,
       sex = newData$sex,
       weight = as.numeric(newData$weight),
       height = as.numeric(newData$height),
@@ -687,7 +717,7 @@ server <- function(input, output, session) {
     
     lastRecordToPlot(list(
       firestore_id = new_row$firestore_id,
-      patientId = new_row$patientId,
+      personId = new_row$personId,
       weight = new_row$weight,
       height = new_row$height
     ))
@@ -778,7 +808,7 @@ server <- function(input, output, session) {
     if (!is.null(record)) {
       kg_input <- as.numeric(record$weight)
       m_input <- as.numeric(record$height)
-      id_input <- record$patientId
+      id_input <- record$personId
       
       if (!is.na(kg_input) && !is.na(m_input) && m_input > 0) {
         bmi_output <- sprintf("%.2f", kg_input / (m_input^2))
@@ -838,7 +868,7 @@ server <- function(input, output, session) {
     )
     
     datatable(
-      df[, c("patientId", "timestamp", "sex", "weight", "height", "bmi", "bmi_zone", "delete_button")],
+      df[, c("personId", "timestamp", "sex", "weight", "height", "bmi", "bmi_zone", "delete_button")],
       colnames = c("Person ID", "Evaluation date", "Sex", "Weight (kg)", "Height (m)", "BMI (kg/m²)", "BMI zone", "Delete"),
       rownames = FALSE,
       escape = FALSE,
@@ -978,7 +1008,7 @@ server <- function(input, output, session) {
   observeEvent(input$recordsTable_cell_edit, {
     info <- input$recordsTable_cell_edit
     df <- isolate(personData())
-    col_map <- c("patientId", NA, "sex", "weight", "height", NA, NA)
+    col_map <- c("personId", NA, "sex", "weight", "height", NA, NA)
     col_name <- col_map[info$col + 1]
     if (is.na(col_name)) return()
     df[info$row, col_name] <- info$value
@@ -999,7 +1029,7 @@ server <- function(input, output, session) {
     if (!is.null(current_plot_record) && current_plot_record$firestore_id == record_to_update$firestore_id) {
       lastRecordToPlot(list(
         firestore_id = record_to_update$firestore_id,
-        patientId = record_to_update$patientId,
+        personId = record_to_update$personId,
         weight = record_to_update$weight,
         height = record_to_update$height
       ))
@@ -1009,7 +1039,7 @@ server <- function(input, output, session) {
     
     session$sendCustomMessage(type = "updateData", message = list(
       firestore_id = record_to_update$firestore_id,
-      patientId = record_to_update$patientId,
+      personId = record_to_update$personId,
       sex = record_to_update$sex,
       weight = as.numeric(record_to_update$weight),
       height = as.numeric(record_to_update$height)
@@ -1053,7 +1083,7 @@ server <- function(input, output, session) {
       req(record)
       client_tz <- input$clientTimeZone
       date_time <- as.POSIXct(record$timestamp / 1000, origin = "1970-01-01", tz = client_tz)
-      idnumber <- record$patientId
+      idnumber <- record$personId
       dateyyyymmdd <- format(date_time, "%Y-%m-%d")
       timehhmmss <- format(date_time, "%H.%M.%S")
       paste0("bmireport_id", idnumber, "_date", dateyyyymmdd, "_time", timehhmmss, ".pdf")
@@ -1070,7 +1100,7 @@ server <- function(input, output, session) {
       
       params <- list(
         date = date_formatted,
-        person_id = record$patientId,
+        person_id = record$personId,
         sex = record$sex,
         weight = record$weight,
         height = record$height,
