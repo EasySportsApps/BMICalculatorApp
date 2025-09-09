@@ -62,7 +62,7 @@ ui <- fluidPage(
               image: {
                 src: "https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif",
                 alt: "Donate",
-                title: "Support the development of Shiny Web Apps",
+                title: "Support the development of Shiny web apps",
               }
             }).render("#donate-button");
         });
@@ -307,10 +307,15 @@ ui <- fluidPage(
           tags$div(class = "login-info", style = "margin-top: 0px;",
                    tags$h5(icon("info-circle", style = "margin-right: 10px;"), "Important information"),
                    tags$p(
-                     icon("desktop", style = "margin-right: 10px;"), tags$strong("About BMI Calculator App:"),
-                     "This free and interactive web application, developed with RStudio and Shiny, allows anyone to monitor their own weight and BMI or that of another person over time. 
-                     It should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. 
-                     The app provides a secure and organized way to store registered confidential information."
+                     icon("desktop", style = "margin-right: 10px;"),
+                     tags$strong("About BMI Calculator App:"),
+                     "BMI Calculator is a free and interactive Shiny web app, created and developed by ",
+                     HTML('<a href="https://raulhilenophd-nextlevelstatsandapps4u.netlify.app" target="_blank">Raúl Hileno, PhD</a>'),
+                     ", as part of the ",
+                     HTML('<a href="https://github.com/EasySportsApps" target="_blank">EasySportsApps</a> GitHub project. '),
+                     "It allows anyone to monitor their own weight and BMI, or that of another person, over time. ",
+                     "It should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. ",
+                     "The app provides a secure and organized way to store registered confidential information."
                    ),
                    tags$p(
                      icon("envelope", style = "margin-right: 10px;"), tags$strong(" Sign in with email:"),
@@ -350,8 +355,8 @@ ui <- fluidPage(
                    ),
                    tags$p(
                      icon("headset", style = "margin-right: 10px;"), tags$strong(" Technical support and help:"),
-                     " If you run into any technical issues, have questions about the app, or wish for your account and all associated data to be permanently deleted from Firebase, please ",
-                     tags$a(href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app", target = "_blank", "contact the app owner here."),
+                     " If you run into any technical issues, have questions about the app, or wish for your account and all associated data to be permanently deleted from Firebase, please contact the app owner ",
+                     tags$a(href = "mailto:easysportsappsproject@gmail.com", "here."),
                      " You'll get a response as soon as possible."
                    )
           ),
@@ -393,16 +398,8 @@ ui <- fluidPage(
                 tags$li(tags$strong("Address:"), " Carrer d'en Xanxo, 41, 25110, Alpicat (Lleida)"),
                 tags$li(
                   tags$strong("Email:"), " ",
-                  tags$a(href = "mailto:rhileno@gmail.com", "rhileno@gmail.com")
+                  tags$a(href = "mailto:easysportsappsproject@gmail.com", "easysportsappsproject@gmail.com")
                 ),
-                tags$li(
-                  tags$strong("Website:"), " ",
-                  tags$a(
-                    href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app",
-                    target = "_blank",
-                    "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app"
-                  )
-                )
               ),
               tags$hr(),
               tags$h4(strong("2. Purpose of the app"), style = "text-align: justify;"),
@@ -464,8 +461,8 @@ ui <- fluidPage(
               tags$h4(strong("3. User rights"), style = "text-align: justify;"),
               tags$p(
                 style = "text-align: justify;",
-                "In accordance with the General Data Protection Regulation (GDPR), users may request access to, rectification or deletion of, or objection to the processing of their personal data by sending a request ",
-                tags$a(href = "https://raulhilenophd-nextlevelstatsandapps4u.netlify.app", target = "_blank", "here"),
+                "In accordance with the General Data Protection Regulation (GDPR), users can request to rectify or delete their personal data, as well as object to its processing. To do so, please send a request ",
+                tags$a(href = "mailto:easysportsappsproject@gmail.com", "here"),
                 " to the owner of this Shiny app."
               ),
               tags$hr(),
