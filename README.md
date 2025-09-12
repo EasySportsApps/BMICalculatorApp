@@ -4,7 +4,7 @@
 
 [BMICalculatorApp - Version for Adults](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
 
-## <img src="https://img.icons8.com/color/24/000000/youtube--v1.png"/> How to use BMICalculatorApp in 1 minute
+## <img src="https://img.icons8.com/ios-filled/24/000000/youtube--v1.png"/> How to use BMICalculatorApp in 1 minute
 
 [![How to use BMICalculatorApp in 1 minute | EasySportsApps](https://img.youtube.com/vi/sY2_WEJQPoU/hqdefault.jpg)](https://www.youtube.com/watch?v=sY2_WEJQPoU)
 
