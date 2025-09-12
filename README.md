@@ -4,7 +4,10 @@
 
 [BMICalculatorApp - Version for Adults](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
 
-[![How to use BMICalculatorApp in 1 minute | EasySportsApps](https://img.youtube.com/vi/sY2_WEJQPoU/hqdefault.jpg)](https://www.youtube.com/watch?v=sY2_WEJQPoU)
+[![Cómo usar la BMICalculatorApp en 1 minuto](https://img.youtube.com/vi/sY2_WEJQPoU/hqdefault.jpg)](https://www.youtube.com/watch?v=sY2_WEJQPoU)
+<p align="center">
+  <b>Haz clic para ver el vídeo tutorial</b>
+</p>
 
 ## <img src="https://img.icons8.com/ios-filled/24/000000/document.png"/> About BMICalculatorApp
 
