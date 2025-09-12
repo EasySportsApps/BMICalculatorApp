@@ -20,7 +20,7 @@ ui <- fluidPage(
   tags$head(
     # Basic HTML tags for responsive design and app title
     tags$meta(name = "viewport", content = "width=device-width, initial-scale=1, shrink-to-fit=no"),
-    tags$title("BMI Calculator App"),
+    tags$title("BMICalculatorApp"),
     tags$link(rel = "icon", href = "calculator.png", type = "image/png"),
     
     # External CSS stylesheets
@@ -89,7 +89,7 @@ ui <- fluidPage(
             style = "margin-top: 10px;",
             
             div(style = "display: flex; flex-direction: column; align-items: flex-start;",
-                h2("BMI Calculator App", class = "app-header",
+                h2("BMICalculatorApp", class = "app-header",
                    style = "color: #2F4F4F; font-weight: bold; font-size: 2.5em; margin-bottom: 0px;"),
                 p("Version for Adults",
                   style = "color: #696969; font-size: 1.1em; margin-top: 0;")
@@ -244,7 +244,7 @@ ui <- fluidPage(
   div(id = "login_ui_wrapper",
       div(id = "login_ui",
           style = "width: 600px; max-width: 90%; margin: auto; padding: 40px; text-align: center;",
-          h3(icon("calculator", style = "margin-right: 10px;"), "BMI Calculator App",
+          h3(icon("calculator", style = "margin-right: 10px;"), "BMICalculatorApp",
              style = "color: #2F4F4F; font-weight: bold; font-size: 2em; margin-bottom: 5px;"),
           p("Version for Adults",
             style = "color: #696969; font-size: 1em; margin-top: 0; margin-bottom: 20px;"),
@@ -308,25 +308,25 @@ ui <- fluidPage(
                    tags$h5(icon("info-circle", style = "margin-right: 10px;"), "Important information"),
                    tags$p(
                      icon("desktop", style = "margin-right: 10px;"),
-                     tags$strong("About BMI Calculator App:"),
-                     "BMI Calculator is a free and interactive Shiny web app, created and developed by ",
-                     HTML('<a href="https://raulhilenophd-nextlevelstatsandapps4u.netlify.app" target="_blank">Raúl Hileno, PhD</a>'),
-                     ", as part of the ",
+                     tags$strong("About BMICalculatorApp:"),
+                     "A free and interactive Shiny web app, created and developed by ",
+                     HTML('<a href="https://raulhilenophd-nextlevelstatsandapps4u.netlify.app" target="_blank">Raúl Hileno, PhD</a>,'),
+                     " as part of the ",
                      HTML('<a href="https://github.com/EasySportsApps" target="_blank">EasySportsApps</a> GitHub project. '),
-                     "It allows anyone to monitor their own weight and BMI, or that of another person, over time. ",
+                     "This tool allows anyone to monitor their own weight and BMI, or that of another person, over time. ",
                      "It should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. ",
                      "The app provides a secure and organized way to store registered confidential information."
                    ),
                    tags$p(
                      icon("envelope", style = "margin-right: 10px;"), tags$strong(" Sign in with email:"),
-                     " Choose this option if you wish to use the BMI Calculator App regularly and securely store your registered data in Firebase, a set of backend cloud computing services provided by Google. 
+                     " Choose this option if you wish to use the BMICalculatorApp regularly and securely store your registered data in Firebase, a set of backend cloud computing services provided by Google. 
                      To create an account with your email, follow the steps below."
                    ),
                    tags$ul(
                      style = "text-align: justify; padding-left: 1.2em;",
                      tags$li(
                        tags$strong("Step 1: "), 
-                       "Access the BMI Calculator App, click ”Sign in with email”, enter a valid email address, a username, and a ",
+                       "Access the BMICalculatorApp, click ”Sign in with email”, enter a valid email address, a username, and a ",
                        tags$strong("login password"),
                        " (from 8 to 20 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character), then click ”Save”. ",
                        tags$strong("This password is recoverable.")
@@ -337,7 +337,7 @@ ui <- fluidPage(
                      ),
                      tags$li(
                        tags$strong("Step 3: "),
-                       "Return to the BMI Calculator App, click ”Done” and then ”Sign in with email”, enter your verified email address and login password, then click ”Sign in”."
+                       "Return to the BMICalculatorApp, click ”Done” and then ”Sign in with email”, enter your verified email address and login password, then click ”Sign in”."
                      ),
                      tags$li(
                        tags$strong("Step 4: "),
@@ -350,7 +350,7 @@ ui <- fluidPage(
                    ),
                    tags$p(
                      icon("user", style = "margin-right: 10px;"), tags$strong(" Continue as guest:"),
-                     " Choose this option if you only want to try the BMI Calculator App without registering with an email. 
+                     " Choose this option if you only want to try the BMICalculatorApp without registering with an email. 
                      Data recorded as a guest isn't encrypted, and the anonymous guest account will be automatically deleted after up to 30 days."
                    ),
                    tags$p(
@@ -405,7 +405,7 @@ ui <- fluidPage(
               tags$h4(strong("2. Purpose of the app"), style = "text-align: justify;"),
               tags$p(
                 style = "text-align: justify;",
-                "This Shiny app, called BMI Calculator App - Version for Adults, is designed to calculate and monitor the Body Mass Index (BMI) of adults based on their height and weight. 
+                "This Shiny app, called BMICalculatorApp - Version for Adults, is designed to calculate and monitor the Body Mass Index (BMI) of adults based on their height and weight. 
                 It allows users to enter new person data and securely store encrypted registered data in Firebase, a set of backend cloud computing services provided by Google."
               ),
               
@@ -452,7 +452,7 @@ ui <- fluidPage(
                 These email addresses, along with encrypted registered data, are securely stored in Firebase, a set of backend cloud computing services provided by Google. 
                 Specifically, email addresses are managed through Firebase Authentication, while registered data is encrypted on the client side before being stored in the Firebase Firestore Database. 
                 Login passwords are not stored but can be reset via Firebase upon users’ request.
-                Personal encryption passwords—used to encrypt registered data before uploading to Firebase and to decrypt it within the BMI Calculator App when restarted—are never stored or recoverable. 
+                Personal encryption passwords—used to encrypt registered data before uploading to Firebase and to decrypt it within the BMICalculatorApp when restarted—are never stored or recoverable. 
                 Users are solely responsible for remembering their encryption password. 
                 All information collected in Firebase is used exclusively for the operation of this Shiny app, is never shared with third parties, and is not used for commercial purposes. 
                 Users who choose the “Continue as guest” option do not register with an email. Data recorded as a guest isn't encrypted, and the anonymous guest account will be automatically deleted after up to 30 days."
