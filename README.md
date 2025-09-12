@@ -1,19 +1,19 @@
-# BMI Calculator App
+# BMICalculatorApp
 
-## <img src="https://img.icons8.com/ios-filled/24/000000/internet.png"/> Online access to BMI Calculator App
+## <img src="https://img.icons8.com/ios-filled/24/000000/internet.png"/> Online access to BMICalculatorApp
 
-[BMI Calculator App - Version for Adults](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
+[BMICalculatorApp - Version for Adults](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
 
-## <img src="https://img.icons8.com/ios-filled/24/000000/document.png"/> About BMI Calculator App
+## <img src="https://img.icons8.com/ios-filled/24/000000/document.png"/> About BMICalculatorApp
 
-BMI Calculator App is a free and interactive Shiny web app, created and developed by [Raúl Hileno, PhD](https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/), as part of the [EasySportsApps](https://github.com/EasySportsApps) GitHub project. It allows anyone to monitor their own weight and BMI, or that of another person, over time. It should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. The app provides a secure and organized way to store registered confidential information and offers the following features:
+BMICalculatorApp is a free and interactive Shiny web app, created and developed by [Raúl Hileno, PhD](https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/), as part of the [EasySportsApps](https://github.com/EasySportsApps) GitHub project. It allows anyone to monitor their own weight and BMI, or that of another person, over time. It should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. The app provides a secure and organized way to store registered confidential information and offers the following features:
 
 - **<img src="https://img.icons8.com/ios-filled/24/000000/add-user-male.png"/>  New person entry**: Input a person's ID, sex, weight, and height to instantly calculate and visualize their BMI.  
 - **<img src="https://img.icons8.com/ios-filled/24/000000/calculator.png"/> New person BMI calculation**: Displays the BMI value and its classification according to the World Health Organization (WHO) standards.  
 - **<img src="https://img.icons8.com/ios-filled/24/000000/download.png"/>  Download report**: Generate and download a PDF report of the BMI calculation for the new person entry.  
 - **<img src="https://img.icons8.com/ios-filled/24/000000/conference.png"/> Registered data**: View, search, filter, and edit all registered data in an interactive table. You can also download the filtered data in CSV, XLSX, or PDF formats.  
 
-## <img src="https://img.icons8.com/ios-filled/24/000000/idea.png"/> Future features and ideas for BMI Calculator App
+## <img src="https://img.icons8.com/ios-filled/24/000000/idea.png"/> Future features and ideas for BMICalculatorApp
 
 In future versions, we are considering adding the following features:
 
@@ -27,9 +27,9 @@ If you have any suggestions for improvement, feel free to share them in the [Dis
 
 We greatly appreciate contributions from app users through our [donation link](https://www.paypal.com/donate/?hosted_button_id=BA84P5Y2MC7MN). Thank you!
 
-## <img src="https://img.icons8.com/ios-filled/24/000000/copyright.png"/> BMI Calculator App license
+## <img src="https://img.icons8.com/ios-filled/24/000000/copyright.png"/> BMICalculatorApp license
 
-BMI Calculator App is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License ([CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)).
+BMICalculatorApp is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License ([CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)).
 
 You are free to:
 - **<img src="https://img.icons8.com/ios-filled/24/000000/link.png"/> Share**: Copy and redistribute the material in any medium or format.
