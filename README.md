@@ -4,6 +4,8 @@
 
 [BMICalculatorApp - Version for Adults](https://easysportsapps.shinyapps.io/bmicalculatorapp/)
 
+[![How to use BMICalculatorApp in 1 minute | EasySportsApps](https://img.youtube.com/vi/sY2_WEJQPoU/hqdefault.jpg)](https://www.youtube.com/watch?v=sY2_WEJQPoU)
+
 ## <img src="https://img.icons8.com/ios-filled/24/000000/document.png"/> About BMICalculatorApp
 
 BMICalculatorApp is a free and interactive Shiny web app, created and developed by [Raúl Hileno, PhD](https://raulhilenophd-nextlevelstatsandapps4u.netlify.app/), as part of the [EasySportsApps](https://github.com/EasySportsApps) GitHub project. It allows anyone to monitor their own weight and BMI, or that of another person, over time. It should not be used with people under 18 years old, during pregnancy, in cases of diagnosed or suspected eating disorders, or when a medical condition affects height. The app provides a secure and organized way to store registered confidential information and offers the following features:
